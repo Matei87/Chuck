@@ -20,7 +20,7 @@ function App() {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    fetch('http://api.icndb.com/jokes/')
+    fetch('https://api.icndb.com/jokes/')
       .then(res => res.json())
       .then(data => {
         setJokes(data.value);
@@ -30,7 +30,7 @@ function App() {
         console.log(error)
       })
 
-    fetch(`http://api.icndb.com/categories`)
+    fetch(`https://api.icndb.com/categories`)
       .then(res => res.json())
       .then(res => {
         setCategories(res.value);

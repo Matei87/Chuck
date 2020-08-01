@@ -1,0 +1,26 @@
+header {
+    height: 120px;
+    background: #F7F7F7;
+}
+header .container,  header .row {
+    height: 100%;
+}
+
+header .col-md-12 {
+    display: flex; justify-content: center; align-items: center;
+}
+
+header img {
+    width: 150px; height: 110px; object-fit: cover; object-position: top;
+    border-radius: 50%;
+}
+header p {
+    margin-bottom: 0; margin-left: auto;
+    font-size: 1.75rem; border-bottom: 1px solid crimson;
+}
+
+@media (max-width: 575.98px) {
+    header p {
+        font-size: 1.35rem; margin-left: 2rem;
+    }
+}

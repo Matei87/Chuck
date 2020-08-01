@@ -1,38 +1,57 @@
-.App {
-  text-align: center;
+.btn {
+    background: inherit;
+    color: burlywood;
+    border: none !important;
+}
+.btn:hover {
+    background: inherit;
+}
+.btn:hover:first-of-type {
+    color: #3d6ad6;
+}
+.btn:hover:last-of-type {
+    color: crimson;
+}
+.btn:focus:first-of-type {
+    color: #3d6ad6; 
+    background: inherit;
+    border: none !important; box-shadow: none !important;
+}
+.btn:focus:last-of-type {
+    color: crimson; outline: none !important;
+    background: inherit;
+    border: none !important; box-shadow: none !important;
+}
+a:focus {
+    outline: none !important;
+}
+.btn:active {
+    border: none !important; box-shadow: none !important;
+     background: inherit;
+}
+.card-text {
+    margin-bottom: .25rem;
+}
+.nav-tabs {
+    margin-bottom: 1rem; position: sticky; top: 0; z-index: 10;
+    background-color: black; border-bottom: none;
+    display: flex; justify-content: center; padding: 10px;
+}
+.nav-tabs .nav-link {
+    border: none;
+}
+.nav-tabs .nav-link.active {
+    background-color: inherit;
+    border-bottom: 2px solid #3d6ad6;
+}
+.nav-tabs .nav-link, .nav-tabs .nav-link.active {
+    color: crimson;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.spinner-grow {
+display: flex; justify-content: center; align-content: center;
+margin: 1rem auto;
 }
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.edited-badge-pill {
+    position: absolute; top: 5px;
 }

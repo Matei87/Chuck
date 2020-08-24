@@ -8,16 +8,17 @@ import Badge from 'react-bootstrap/Badge'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 
+
 function App() {
   const [jokes, setJokes] = useState([]);
   const [jokesToShow, setJokesToShow] = useState([]);
   const [categories, setCategories] = useState([]);
   const [filterCat, setFilterCat] = useState([]);
-
   const [likedJokes, setLikedJokes] = useState([]);
   const [currentTab, setCurrentTab] = useState('home');
-
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState({});
+
 
   useEffect(() => {
     fetch('https://api.icndb.com/jokes/')
@@ -25,56 +26,71 @@ function App() {
       .then(data => {
         setJokes(data.value);
         setJokesToShow(data.value.slice(0, 10))
+      }).catch(err => setError(err))
 
-      }).catch(error => {
-        console.log(error)
-      })
 
     fetch(`https://api.icndb.com/categories`)
       .then(res => res.json())
       .then(res => {
         setCategories(res.value);
         setFilterCat(res.value);
+      }).catch(err => setError(err))
 
-      }).catch(err => console.log(err))
   }, [])
 
-  const addMoreJokes = () => {
-    setLoading(true);
-    setTimeout(() => {
-      setJokesToShow(jokes.slice(0, jokesToShow.length + 10));
-    }, 500)
-  }
-
-  const observeElement = (bottomJoke) => {
-    if (!bottomJoke) {
-      return;
-    }
-    const observer = new IntersectionObserver(entries => {
-      if (entries[0].isIntersecting === true) {
-        addMoreJokes();
-        observer.unobserve(bottomJoke);
-      }
-    }, { threshold: 1, })
-
-    observer.observe(bottomJoke);
-  }
 
   useEffect(() => {
+    const addMoreJokes = () => {
+      setLoading(true);
+      setTimeout(() => {
+        setJokesToShow(jokes.slice(0, jokesToShow.length + 10));
+      }, 500)
+    }
+
+    const observeElement = (bottomJoke) => {
+      if (!bottomJoke) {
+        return;
+      }
+      const observer = new IntersectionObserver(entries => {
+        if (entries[0].isIntersecting === true) {
+          addMoreJokes();
+          observer.unobserve(bottomJoke);
+        }
+      }, { threshold: 1, })
+
+      observer.observe(bottomJoke);
+    }
+
     const bottomJokeEl = document.getElementById(`joke-${jokesToShow.length - 1}`);
     observeElement(bottomJokeEl);
   }, [jokesToShow])
 
+
   const likeJoke = (id) => {
     if (likedJokes.find(j => j.id === id)) { return; }
     const likedJoke = jokes.find(j => j.id === id)
-    setLikedJokes([likedJoke, ...likedJokes])
+    setLikedJokes([likedJoke, ...likedJokes]);
   }
+
   const unlikeJoke = (id) => {
     const newLikedJokes = likedJokes.filter(j => j.id !== id)
     setLikedJokes(newLikedJokes)
-    console.log(newLikedJokes)
   }
+
+
+  //loads the liked jokes from local storage on refresh/start new session
+  useEffect(() => {
+    const localJokes = localStorage.getItem('jokes');
+    if (localJokes) {
+      setLikedJokes(JSON.parse(localJokes))
+    }
+  }, [])
+
+  //stores the liked jokes to local storage
+  useEffect(() => {
+    localStorage.setItem('jokes', JSON.stringify(likedJokes));
+  })
+
   const onChangeCategories = (e) => {
     const category = e.target.name;
     if (filterCat.includes(category)) {

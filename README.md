@@ -1,3 +1,10 @@
-REACT Chuck Norris JOKES
+# Chuck
+Chuck is a website where you can read the coolest jokes about Chuck Norris.
+You can like them by add them to favorites.
 
-I used Bootstrap / React-Bootstrap and function hooks with fetch.
+
+# Built With
+
+* React
+* Bootstrap
+* React-Bootstrap

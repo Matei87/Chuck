@@ -21,7 +21,7 @@ function App() {
 
 
   useEffect(() => {
-    fetch('https://api.icndb.com/jokes/')
+    fetch('https://api.chucknorris.io/jokes/')
       .then(res => res.json())
       .then(data => {
         setJokes(data.value);
